@@ -5,6 +5,6 @@
     "sourceMap": true,                        /* Generates corresponding '.map' file. */
   },
   "exclude": [
-    "node_modeules"
+    "node_modules"
   ]
 }
