@@ -1,27 +1,20 @@
-import { app, BrowserWindow } from 'electron';
+import { app } from 'electron';
 import { Menu } from 'electron';
+import { ApplicationBase } from './applicationBase'
+import { MainWindow } from './mainWindow'
 
-class MainApplication {
+export class Application extends ApplicationBase {
 
-    mainWindow: Electron.BrowserWindow | null = null;
-
-    constructor(public app: Electron.App) {
-        this.app.on('window-all-closed', this.onWindowAllClosed);
-        this.app.on('ready', this.onReady);
-    }
-
-    onWindowAllClosed() {
-        if (process.platform != 'darwin') {
-            app.quit();
-        }
+    constructor(app: Electron.App) {
+        super(app);
     }
 
     onReady() {
-        this.mainWindow = new BrowserWindow({width: 800, height: 600});
-        this.mainWindow.loadURL('file://' + __dirname + '/index.html');
-        this.mainWindow.on('closed', () => {
-            this.mainWindow = null;
-        });
+        console.log('Application.onReady');
+
+        super.onReady();
+
+        this.window = new MainWindow('file://' + __dirname + '/index.html');
 
         var menu = Menu.buildFromTemplate([{
             label: 'File',
@@ -29,11 +22,11 @@ class MainApplication {
             {
                 label: 'Exit',
                 accelerator: 'CmdOrCtrl+Q',
-                click: () => { app.quit(); }
+                click: () => { this.app.quit(); }
             }]},
         ]);
         Menu.setApplicationMenu(menu);
     }
 }
 
-new MainApplication(app);
+new Application(app);
