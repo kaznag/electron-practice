@@ -13,7 +13,7 @@
   "author": "Kaz NAGAMINE",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.8.4",
-    "typescript": "^2.8.1"
+    "electron": "^3.0.6",
+    "typescript": "^3.1.3"
   }
 }
