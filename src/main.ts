@@ -5,11 +5,13 @@ import { MainWindow } from './mainWindow'
 
 export class Application extends ApplicationBase {
 
+    private window: MainWindow = null;
+
     constructor(app: Electron.App) {
         super(app);
     }
 
-    onReady() {
+    public onReady() {
         console.log('Application.onReady');
 
         super.onReady();
@@ -19,11 +21,19 @@ export class Application extends ApplicationBase {
         var menu = Menu.buildFromTemplate([{
             label: 'File',
             submenu: [
-            {
-                label: 'Exit',
-                accelerator: 'CmdOrCtrl+Q',
-                click: () => { this.app.quit(); }
-            }]},
+                {
+                    label: 'Open File...',
+                    accelerator: 'CmdOrCtrl+O',
+                    click: () => { this.window.onOpenFileMenuItem(); }
+                },
+                {
+                    type: "separator"
+                },
+                {
+                    label: 'Exit',
+                    accelerator: 'CmdOrCtrl+Q',
+                    click: () => { this.app.quit(); }
+                }]}
         ]);
         Menu.setApplicationMenu(menu);
     }

@@ -11,7 +11,7 @@ export class BrowserWindowBase {
         this.window.on('closed', () => this.onClosed());
     }
 
-    onClosed() {
+    protected onClosed() {
         this.window = null;
     }
 }
