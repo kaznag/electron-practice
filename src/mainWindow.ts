@@ -1,24 +1,18 @@
-import { dialog } from 'electron';
-import { BrowserWindowBase } from './browserWindowBase'
+import { BrowserWindow } from 'electron';
+import { dialog, ipcMain, webContents } from 'electron';
 
-export class MainWindow extends BrowserWindowBase {
+export class MainWindow {
 
+    private window: Electron.BrowserWindow = null;
+    
     constructor(url: string) {
-        super(url);
+        this.window = new BrowserWindow({width: 800, height: 600});
+        this.window.loadFile(url);
+
+        this.window.on('closed', this.onClosed);
     }
 
-    public onOpenFileMenuItem() {
-        dialog.showOpenDialog({
-            properties: ['openFile'],
-            filters: [
-                {name: 'Imanges', extensions: ['jpg', 'png', 'gif']},
-                {name: 'All Files', extensions: ['*']}]
-        }, function(filePaths) {
-            if (filePaths != null) {
-            filePaths.forEach(function(value) {
-                console.log(value);
-            });
-            }
-        });
+    private onClosed() {
+        this.window = null;
     }
 }
