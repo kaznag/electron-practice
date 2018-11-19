@@ -4,6 +4,7 @@ var main = {
   mode: 'development',
   target: 'electron-main',
   entry: path.join(__dirname, 'src', 'main'),
+  devtool: 'inline-source-map',
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist')
