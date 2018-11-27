@@ -22,10 +22,10 @@ export class Application {
         this.mainWindow = new MainWindow(path.join(__dirname, '../index.html'));
 
         var menu = Menu.buildFromTemplate([{
-            label: 'File',
+            label: '&File',
             submenu: [
                 {
-                    label: 'Exit',
+                    label: 'E&xit',
                     accelerator: 'CmdOrCtrl+Q',
                     click: () => { this.app.quit(); }
                 }]

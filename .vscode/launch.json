@@ -8,21 +8,28 @@
             "type": "node",
             "request": "launch",
             "name": "Debug Main Process",
-            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
             "windows": {
                 "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
             },
-            "cwd": "${workspaceFolder}",
-            "program": "${workspaceFolder}/dist/main.js",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/dist/main.js",
             "protocol": "inspector",
             "sourceMaps": true,
         },
         {
 			"type": "chrome",
-			"request": "attach",
-			"name": "Attach to Render Process",
-			"port": 9222,
-			"webRoot": "${workspaceRoot}/html"
+			"request": "launch",
+			"name": "Debug Renderer Process",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+            "windows": {
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+            },
+            "runtimeArgs": [
+                "${workspaceRoot}/dist/main.js",
+                "--remote-debugging-port=9222"
+            ],
+			"webRoot": "${workspaceRoot}/"
 		}
     ]
 }
