@@ -1,10 +1,11 @@
 # electron-practice
+
 This is a practice project.
 
 ## Usage
 
-```bash
-git clone git@github.com:kaznag/electron-practice.git
+``` bash
+git clone https://github.com/kaznag/electron-practice.git
 cd electron-practice
 npm install
 npm start
