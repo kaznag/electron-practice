@@ -1,5 +1,7 @@
 const path = require('path');
 
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 var main = {
   mode: 'development',
   target: 'electron-main',
@@ -28,6 +30,12 @@ var main = {
   resolve: {
     extensions: ['.js', '.ts']
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      { from: './src/*.html', to: '[name].[ext]' },
+      { from: './src/package.json' }
+    ])
+  ]
 };
 
 module.exports = [

@@ -2,17 +2,17 @@
   "name": "electron-practice",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/main.js",
   "scripts": {
     "build": "webpack",
     "prestart": "npm run build",
-    "start": "electron .",
+    "start": "electron dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Kaz NAGAMINE",
   "license": "MIT",
   "devDependencies": {
+    "copy-webpack-plugin": "^5.0.4",
     "electron": "^7.0.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.6.4",

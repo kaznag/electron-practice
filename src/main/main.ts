@@ -26,7 +26,7 @@ export class Application {
         nodeIntegration: true,
       }
     });
-    this.mainWindow.loadFile(path.join(__dirname, '../index.html'));
+    this.mainWindow.loadFile(path.join(__dirname, './index.html'));
     this.mainWindow.on('closed', () => this.onClosed());
 
     const menu = Menu.buildFromTemplate([{
