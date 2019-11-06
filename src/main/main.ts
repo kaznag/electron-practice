@@ -21,7 +21,10 @@ export class Application {
   private onReady() {
     this.mainWindow = new BrowserWindow({
       width: 800,
-      height: 400
+      height: 400,
+      webPreferences: {
+        nodeIntegration: true,
+      }
     });
     this.mainWindow.loadFile(path.join(__dirname, '../index.html'));
     this.mainWindow.on('closed', () => this.onClosed());
