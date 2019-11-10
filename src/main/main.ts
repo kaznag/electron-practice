@@ -1,5 +1,6 @@
 import { app } from 'electron'
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, Event } from 'electron';
+import { dialog } from 'electron';
 import { Menu } from 'electron';
 import * as path from 'path';
 
@@ -32,6 +33,8 @@ export class Application {
       }
     });
     this.mainWindow.loadFile(path.join(__dirname, './index.html'));
+
+    this.mainWindow.on('close', (e: Event) => this.onClose(e));
     this.mainWindow.on('closed', () => this.onClosed());
 
     const menu = Menu.buildFromTemplate([{
@@ -48,6 +51,12 @@ export class Application {
     Menu.setApplicationMenu(menu);
   }
 
+  private onClose(e: Event) {
+    if (!this.showConfirmDialog('Are you sure you want to exit?')) {
+      e.preventDefault();
+    }
+  }
+
   private onClosed() {
     this.mainWindow = null;
   }
@@ -60,6 +69,19 @@ export class Application {
 
       this.mainWindow.focus();
     }
+  }
+
+  private showConfirmDialog(message: string): boolean {
+    const options = {
+      type: "question",
+      buttons: ['Yes', 'Cancel'],
+      defaultId: 1,
+      title: 'Confirm',
+      message: message,
+    };
+
+    const result = dialog.showMessageBoxSync(options) === 0;
+    return result;
   }
 }
 
