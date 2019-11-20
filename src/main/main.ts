@@ -1,12 +1,10 @@
 import { app } from 'electron'
-import { BrowserWindow, Event } from 'electron';
-import { dialog } from 'electron';
 import { Menu } from 'electron';
-import * as path from 'path';
+import { MainWindow } from './main-window';
 
 export class Application {
 
-  private mainWindow: Electron.BrowserWindow | null = null;
+  private mainWindow: MainWindow | null = null;
 
   constructor(public app: Electron.App) {
     if (!this.app.requestSingleInstanceLock()) {
@@ -18,24 +16,8 @@ export class Application {
     this.app.on('second-instance', () => this.onSecondInstance());
   }
 
-  private onWindowAllClosed() {
-    if (process.platform != 'darwin') {
-      this.app.quit();
-    }
-  }
-
-  private onReady() {
-    this.mainWindow = new BrowserWindow({
-      width: 800,
-      height: 400,
-      webPreferences: {
-        nodeIntegration: true,
-      }
-    });
-    this.mainWindow.loadFile(path.join(__dirname, './index.html'));
-
-    this.mainWindow.on('close', (e: Event) => this.onClose(e));
-    this.mainWindow.on('closed', () => this.onClosed());
+  private onReady(): void {
+    this.mainWindow = new MainWindow();
 
     const menu = Menu.buildFromTemplate([{
       label: '&File',
@@ -44,44 +26,25 @@ export class Application {
           label: 'E&xit',
           accelerator: 'CmdOrCtrl+Q',
           click: () => { this.app.quit(); }
-        }]
+        }
+      ]
     }
     ]);
 
     Menu.setApplicationMenu(menu);
+    this.mainWindow.show();
   }
 
-  private onClose(e: Event) {
-    if (!this.showConfirmDialog('Are you sure you want to exit?')) {
-      e.preventDefault();
+  private onWindowAllClosed(): void {
+    if (process.platform != 'darwin') {
+      this.app.quit();
     }
   }
 
-  private onClosed() {
-    this.mainWindow = null;
-  }
-
-  private onSecondInstance() {
+  private onSecondInstance(): void {
     if (this.mainWindow) {
-      if (this.mainWindow.isMinimized()) {
-        this.mainWindow.restore();
-      }
-
-      this.mainWindow.focus();
+      this.mainWindow.show();
     }
-  }
-
-  private showConfirmDialog(message: string): boolean {
-    const options = {
-      type: "question",
-      buttons: ['Yes', 'Cancel'],
-      defaultId: 1,
-      title: 'Confirm',
-      message: message,
-    };
-
-    const result = dialog.showMessageBoxSync(options) === 0;
-    return result;
   }
 }
 
