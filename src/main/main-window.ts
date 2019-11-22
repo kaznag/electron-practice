@@ -1,4 +1,4 @@
-import { BrowserWindow, Event } from 'electron';
+import { app, BrowserWindow, Event } from 'electron';
 import * as path from 'path';
 import { ConfirmDialog } from './confirm-dialog';
 
@@ -10,6 +10,7 @@ class MainWindow {
     this.window = new BrowserWindow({
       width: 800,
       height: 400,
+      title: app.getName(),
       show: false,
       webPreferences: {
         nodeIntegration: true,
