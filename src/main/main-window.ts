@@ -10,7 +10,7 @@ class MainWindow {
     this.window = new BrowserWindow({
       width: 800,
       height: 400,
-      title: app.getName(),
+      title: app.name,
       show: false,
       webPreferences: {
         nodeIntegration: true,
