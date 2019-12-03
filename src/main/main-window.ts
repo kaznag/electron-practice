@@ -35,8 +35,10 @@ class MainWindow {
   }
 
   private onClose(e: Event): void {
-    if (!ConfirmDialog.show('Are you sure you want to exit?')) {
-      e.preventDefault();
+    if (this.window) {
+      if (!ConfirmDialog.show(this.window, 'Are you sure you want to exit?')) {
+        e.preventDefault();
+      }
     }
   }
 

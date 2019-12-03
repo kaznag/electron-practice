@@ -1,8 +1,8 @@
-import { dialog } from 'electron';
+import { BrowserWindow, dialog } from 'electron';
 
 class ConfirmDialog {
 
-  static show(message: string): boolean {
+  static show(parent: BrowserWindow, message: string): boolean {
     const options = {
       type: "question",
       buttons: ['Yes', 'Cancel'],
@@ -11,7 +11,7 @@ class ConfirmDialog {
       message: message,
     };
 
-    const result = dialog.showMessageBoxSync(options) === 0;
+    const result = dialog.showMessageBoxSync(parent, options) === 0;
     return result;
   }
 }
