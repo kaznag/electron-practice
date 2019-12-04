@@ -4,8 +4,9 @@
   "description": "",
   "scripts": {
     "build": "webpack",
-    "prestart": "npm run build",
     "start": "electron dist",
+    "pack:l": "electron-builder --l --config ./config/electron-builder.yml",
+    "pack:w": "electron-builder --w --config ./config/electron-builder.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +15,7 @@
   "devDependencies": {
     "copy-webpack-plugin": "^5.0.4",
     "electron": "^7.0.0",
+    "electron-builder": "^21.2.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.6.4",
     "webpack": "^4.41.2",

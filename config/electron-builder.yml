@@ -1,0 +1,13 @@
+# Common configuration
+artifactName: '${productName}.${ext}'
+directories:
+  app: 'dist'
+  output: 'app/${os}'
+# Linux configuration
+linux:
+  target:
+    - AppImage
+# Windows configuration
+win:
+  target:
+    - portable
