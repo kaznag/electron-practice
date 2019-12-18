@@ -13,7 +13,7 @@
   "author": "Kaz NAGAMINE",
   "license": "MIT",
   "devDependencies": {
-    "copy-webpack-plugin": "^5.0.4",
+    "copy-webpack-plugin": "^5.1.1",
     "electron": "^7.0.0",
     "electron-builder": "^21.2.0",
     "ts-loader": "^6.2.1",
