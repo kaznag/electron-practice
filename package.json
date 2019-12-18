@@ -1,9 +1,9 @@
 {
   "name": "electron-practice",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a practice project.",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config ./config/webpack.config.js",
     "start": "electron dist",
     "pack:l": "electron-builder --l --config ./config/electron-builder.yml",
     "pack:w": "electron-builder --w --config ./config/electron-builder.yml",

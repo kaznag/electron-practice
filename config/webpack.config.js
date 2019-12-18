@@ -2,14 +2,17 @@ const path = require('path');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const rootPath = path.resolve(__dirname, './../');
+const srcPath = path.resolve(rootPath, 'src');
+
 var main = {
   mode: 'development',
   target: 'electron-main',
-  entry: path.join(__dirname, 'src', 'main', 'main'),
+  entry: path.resolve(srcPath, 'main/main'),
   devtool: 'inline-source-map',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(rootPath, 'dist')
   },
   node: {
     __dirname: false,
@@ -19,10 +22,10 @@ var main = {
     rules: [{
       test: /.ts?$/,
       include: [
-        path.resolve(__dirname, 'src'),
+        srcPath,
       ],
       exclude: [
-        path.resolve(__dirname, 'node_modules'),
+        path.resolve(rootPath, 'node_modules'),
       ],
       loader: 'ts-loader',
     }]
@@ -32,8 +35,8 @@ var main = {
   },
   plugins: [
     new CopyWebpackPlugin([
-      { from: './src/*.html', to: '[name].[ext]' },
-      { from: './src/package.json' }
+      { from: path.resolve(srcPath, '*.html'), to: '[name].[ext]' },
+      { from: path.resolve(srcPath, 'package.json') }
     ])
   ]
 };
