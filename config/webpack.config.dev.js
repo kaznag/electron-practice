@@ -12,7 +12,7 @@ var main = {
   devtool: 'inline-source-map',
   output: {
     filename: 'main.js',
-    path: path.resolve(rootPath, 'dist')
+    path: path.resolve(rootPath, 'dist/dev')
   },
   node: {
     __dirname: false,

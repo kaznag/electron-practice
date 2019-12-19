@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This is a practice project.",
   "scripts": {
-    "build": "webpack --config ./config/webpack.config.js",
+    "build:dev": "webpack --config ./config/webpack.config.dev.js",
     "start": "electron dist",
     "pack:l": "electron-builder --l --config ./config/electron-builder.yml",
     "pack:w": "electron-builder --w --config ./config/electron-builder.yml",
