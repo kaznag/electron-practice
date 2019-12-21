@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "This is a practice project.",
   "scripts": {
+    "build": "webpack --config ./config/webpack.config.prod.js",
+    "start": "electron dist/prod",
     "build:dev": "webpack --config ./config/webpack.config.dev.js",
-    "start": "electron dist",
-    "pack:l": "electron-builder --l --config ./config/electron-builder.yml",
-    "pack:w": "electron-builder --w --config ./config/electron-builder.yml",
+    "start:dev": "electron dist/dev",
+    "pack:l": "npm run build && electron-builder --l --config ./config/electron-builder.yml",
+    "pack:w": "npm run build && electron-builder --w --config ./config/electron-builder.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

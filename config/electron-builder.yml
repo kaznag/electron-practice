@@ -1,7 +1,7 @@
 # Common configuration
 artifactName: '${productName}.${ext}'
 directories:
-  app: 'dist'
+  app: 'dist/prod'
   output: 'app/${os}'
 # Linux configuration
 linux:
