@@ -1,6 +1,7 @@
 const path = require('path');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const JavaScriptObfuscator = require('webpack-obfuscator');
 
 const rootPath = path.resolve(__dirname, './../');
 const srcPath = path.resolve(rootPath, 'src');
@@ -37,7 +38,10 @@ var main = {
     new CopyWebpackPlugin([
       { from: path.resolve(srcPath, '*.html'), to: '[name].[ext]' },
       { from: path.resolve(srcPath, 'package.json') }
-    ])
+    ]),
+    new JavaScriptObfuscator({
+      rotateUnicodeArray: true
+    }),
   ]
 };
 
