@@ -22,6 +22,7 @@
     "typescript": "^3.6.4",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
+    "webpack-merge": "^4.2.2",
     "webpack-obfuscator": "^0.18.7"
   }
 }
