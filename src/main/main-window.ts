@@ -1,8 +1,12 @@
-import { app, BrowserWindow, Event } from 'electron';
+import { app, BrowserWindow, Event, globalShortcut } from 'electron';
 import * as path from 'path';
 import { ConfirmDialog } from './confirm-dialog';
 
 class MainWindow {
+
+  private readonly devToolsShortcutKey = 'CmdOrCtrl+Shift+I';
+
+  private readonly isDev = process.env.NODE_ENV !== 'production';
 
   private window: BrowserWindow | null = null;
 
@@ -22,6 +26,8 @@ class MainWindow {
 
     this.window.on('close', (e: Event) => this.onClose(e));
     this.window.on('closed', () => this.onClosed());
+
+    this.registerShortcut();
   }
 
   show(): void {
@@ -43,7 +49,26 @@ class MainWindow {
   }
 
   private onClosed(): void {
+    this.unregisterShortcut();
     this.window = null;
+  }
+
+  private registerShortcut(): void {
+    if (this.isDev) {
+      globalShortcut.register(this.devToolsShortcutKey, () => {
+        if (this.window && this.window.isFocused()) {
+          if (this.window.webContents.isDevToolsOpened()) {
+            this.window.webContents.closeDevTools();
+          } else {
+            this.window.webContents.openDevTools();
+          }
+        }
+      });
+    }
+  }
+
+  private unregisterShortcut(): void {
+    globalShortcut.unregisterAll();
   }
 }
 
