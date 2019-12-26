@@ -31,20 +31,16 @@ class MainWindow {
   }
 
   show(): void {
-    if (this.window) {
-      if (this.window.isMinimized()) {
-        this.window.restore();
-      }
-
-      this.window.show();
+    if (this.window!.isMinimized()) {
+      this.window!.restore();
     }
+
+    this.window!.show();
   }
 
   private onClose(e: Event): void {
-    if (this.window) {
-      if (!ConfirmDialog.show(this.window, 'Are you sure you want to exit?')) {
-        e.preventDefault();
-      }
+    if (!ConfirmDialog.show(this.window!, 'Are you sure you want to exit?')) {
+      e.preventDefault();
     }
   }
 
@@ -56,11 +52,11 @@ class MainWindow {
   private registerShortcut(): void {
     if (this.isDev) {
       globalShortcut.register(this.devToolsShortcutKey, () => {
-        if (this.window && this.window.isFocused()) {
-          if (this.window.webContents.isDevToolsOpened()) {
-            this.window.webContents.closeDevTools();
+        if (this.window!.isFocused()) {
+          if (this.window!.webContents.isDevToolsOpened()) {
+            this.window!.webContents.closeDevTools();
           } else {
-            this.window.webContents.openDevTools();
+            this.window!.webContents.openDevTools();
           }
         }
       });
