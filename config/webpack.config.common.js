@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const rootPath = path.resolve(__dirname, './../');
 const srcPath = path.resolve(rootPath, 'src');
 
-var main = {
+const main = {
   target: 'electron-main',
   entry: path.resolve(srcPath, 'main/main'),
   output: {
