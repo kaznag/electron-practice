@@ -1,8 +1,7 @@
-import { app } from 'electron'
-import { Menu } from 'electron';
+import { app, Menu } from 'electron'
 import { MainWindow } from './main-window';
 
-export class Application {
+class Application {
 
   private mainWindow: MainWindow | null = null;
 

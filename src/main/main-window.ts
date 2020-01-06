@@ -11,7 +11,7 @@ class MainWindow {
   private window: BrowserWindow | null = null;
 
   constructor() {
-    this.window = new BrowserWindow({
+    const options = {
       width: 800,
       height: 400,
       title: app.name,
@@ -19,8 +19,9 @@ class MainWindow {
       webPreferences: {
         nodeIntegration: true,
       }
-    });
+    };
 
+    this.window = new BrowserWindow(options);
     this.window.setMenu(null);
     this.window.loadFile(path.join(__dirname, 'index.html'));
 
