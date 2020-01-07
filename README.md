@@ -2,13 +2,19 @@
 
 This is a practice project.
 
+## Environment
+
+- node v12.14.0
+- yarn 1.21.1
+
 ## Usage
 
 ``` bash
 git clone https://github.com/kaznag/electron-practice.git
 cd electron-practice
-npm install
-npm start
+yarn
+yarn build
+yarn start
 ```
 
 ## License

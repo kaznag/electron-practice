@@ -3,15 +3,15 @@
   "tasks": [
     {
       "label": "build",
-      "type": "npm",
-      "script": "build",
+      "type": "shell",
+      "command": "yarn build",
       "group": "build",
       "problemMatcher": []
     },
     {
       "label": "build:dev",
-      "type": "npm",
-      "script": "build:dev",
+      "type": "shell",
+      "command": "yarn build:dev",
       "group": "build",
       "problemMatcher": []
     },
