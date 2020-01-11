@@ -9,5 +9,6 @@ linux:
     - AppImage
 # Windows configuration
 win:
+  icon: 'resources/win32/icon.ico'
   target:
     - portable
