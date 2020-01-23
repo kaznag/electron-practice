@@ -14,6 +14,8 @@ class MainWindow {
     const options = {
       width: 1280,
       height: 720,
+      minWidth: 640,
+      minHeight: 360,
       title: app.name,
       show: false,
       webPreferences: {
