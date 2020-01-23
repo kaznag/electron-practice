@@ -12,8 +12,8 @@ class MainWindow {
 
   constructor() {
     const options = {
-      width: 800,
-      height: 400,
+      width: 1280,
+      height: 720,
       title: app.name,
       show: false,
       webPreferences: {
