@@ -17,6 +17,7 @@
   ],
   "author": "Kaz NAGAMINE",
   "license": "MIT",
+  "dependencies": {},
   "devDependencies": {
     "copy-webpack-plugin": "^5.1.1",
     "electron": "^7.1.7",

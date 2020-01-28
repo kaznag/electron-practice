@@ -15,6 +15,12 @@ Object.keys(srcObj).forEach((key) => {
     case 'version':
       dstObj[key] = srcObj[key];
       break;
+    case 'dependencies':
+      if (Object.keys(srcObj[key]).length > 0) {
+        dstObj[key] = srcObj[key];
+      }
+
+      break;
   }
 });
 
