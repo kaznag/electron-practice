@@ -1,18 +1,14 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 const rootPath = path.resolve(__dirname, './../');
 const srcPath = path.resolve(rootPath, 'src');
 
 const main = {
-  target: 'electron-main',
   entry: path.resolve(srcPath, 'main/main'),
   output: {
     filename: 'main.js',
-  },
-  node: {
-    __dirname: false,
-    __filename: false
   },
   module: {
     rules: [{
@@ -28,6 +24,14 @@ const main = {
   },
   resolve: {
     extensions: ['.js', '.ts']
+  },
+  target: 'electron-main',
+  externals: [
+    nodeExternals(),
+  ],
+  node: {
+    __filename: false,
+    __dirname: false,
   },
   plugins: [
     new CopyWebpackPlugin([
