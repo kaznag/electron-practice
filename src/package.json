@@ -1,5 +1,8 @@
 {
   "name": "electron-practice",
   "version": "1.0.0",
-  "main": "./main.js"
+  "main": "./main.js",
+  "dependencies": {
+    "electron-store": "^5.1.0"
+  }
 }

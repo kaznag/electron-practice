@@ -1,14 +1,19 @@
 import { app, Menu } from 'electron'
 import { MainWindow } from './main-window';
+import { ApplicationSettings } from './application-settings';
 
 class Application {
 
   private mainWindow: MainWindow | null = null;
 
+  private appSettings: ApplicationSettings | null = null;
+
   constructor(public app: Electron.App) {
     if (!this.app.requestSingleInstanceLock()) {
       this.app.quit();
     }
+
+    this.appSettings = new ApplicationSettings();
 
     this.app.on('ready', () => this.onReady());
     this.app.on('window-all-closed', () => this.onWindowAllClosed());
@@ -16,7 +21,7 @@ class Application {
   }
 
   private onReady(): void {
-    this.mainWindow = new MainWindow();
+    this.mainWindow = new MainWindow(this.appSettings!);
 
     const menu = Menu.buildFromTemplate([{
       label: '&File',
