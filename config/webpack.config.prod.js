@@ -15,6 +15,19 @@ const main = merge(common.main, {
   ]
 });
 
+const renderer = merge(common.renderer, {
+  mode: 'production',
+  output: {
+    path: path.resolve(common.rootPath, 'dist/prod')
+  },
+  plugins: [
+    new JavaScriptObfuscator({
+      rotateUnicodeArray: true
+    }),
+  ]
+});
+
 module.exports = [
   main,
+  renderer,
 ];

@@ -3,7 +3,9 @@
     "incremental": true,
     "target": "es5",
     "module": "es2015",
-    "lib": [],
+    "lib": [
+      "dom",
+    ],
     "sourceMap": true,
     "removeComments": true,
     "strict": true,
