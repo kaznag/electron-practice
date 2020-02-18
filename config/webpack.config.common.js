@@ -7,13 +7,13 @@ const rootPath = path.resolve(__dirname, './../');
 const srcPath = path.resolve(rootPath, 'src');
 
 const main = {
-  entry: path.resolve(srcPath, 'main/main'),
+  entry: path.resolve(srcPath, 'main/main.ts'),
   output: {
     filename: 'main.js',
   },
   module: {
     rules: [{
-      test: /.ts?$/,
+      test: /\.ts$/,
       include: [
         srcPath,
       ],
@@ -42,14 +42,14 @@ const main = {
 };
 
 const renderer = {
-  entry: path.resolve(srcPath, 'renderer/main'),
+  entry: path.resolve(srcPath, 'renderer/main.ts'),
   output: {
     filename: 'renderer.js',
   },
   module: {
     rules: [
       {
-        test: /.ts?$/,
+        test: /\.ts$/,
         include: [
           srcPath,
         ],
