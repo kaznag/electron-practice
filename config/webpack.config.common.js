@@ -58,6 +58,22 @@ const renderer = {
         ],
         loader: 'ts-loader',
       },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+            },
+          },
+          {
+            loader: 'sass-loader',
+          }
+        ]
+
+      },
     ],
   },
   resolve: {
