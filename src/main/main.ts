@@ -1,6 +1,7 @@
-import { app, Menu } from 'electron'
+import { app, Menu, ipcMain } from 'electron'
 import { MainWindow } from './main-window';
 import { ApplicationSettings } from './application-settings';
+import { ChannelKey } from '../common/channel-key';
 
 class Application {
 
@@ -23,19 +24,24 @@ class Application {
   private onReady(): void {
     this.mainWindow = new MainWindow(this.appSettings!);
 
-    const menu = Menu.buildFromTemplate([{
-      label: '&File',
-      submenu: [
-        {
-          label: 'E&xit',
-          accelerator: 'CmdOrCtrl+Q',
-          click: () => { this.app.quit(); }
-        }
-      ]
-    }
-    ]);
+    ipcMain.on(ChannelKey.windowCloseRequest, () => this.onIpcWindowCloseRequest());
 
-    Menu.setApplicationMenu(menu);
+    if (this.appSettings?.getWindowFrame()) {
+      const menu = Menu.buildFromTemplate([{
+        label: '&File',
+        submenu: [
+          {
+            label: 'E&xit',
+            accelerator: 'CmdOrCtrl+Q',
+            click: () => { this.app.quit(); }
+          }
+        ]
+      }
+      ]);
+
+      Menu.setApplicationMenu(menu);
+    }
+
     this.mainWindow.show();
   }
 
@@ -49,6 +55,10 @@ class Application {
     if (this.mainWindow) {
       this.mainWindow.show();
     }
+  }
+
+  private onIpcWindowCloseRequest(): void {
+    this.mainWindow!.close();
   }
 }
 

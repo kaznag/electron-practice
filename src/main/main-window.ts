@@ -28,6 +28,7 @@ class MainWindow {
       minHeight: minSize.height,
       title: app.name,
       show: false,
+      frame: this.appSettings.getWindowFrame(),
       webPreferences: {
         nodeIntegration: true,
       }
@@ -66,6 +67,10 @@ class MainWindow {
     }
 
     this.window!.show();
+  }
+
+  close(): void {
+    this.window!.close();
   }
 
   private onClose(e: Event): void {

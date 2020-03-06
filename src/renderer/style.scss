@@ -1,7 +1,89 @@
 
+$title-bar-height: 30px;
+$drag-region-margin: 4px;
+$title-bar-button-width: 45px;
+$contents-margin: 8px;
+
 html,
 body {
   width: 100%;
   height: 100%;
   margin: 0px;
+}
+
+.title-bar {
+  width: 100%;
+  height: $title-bar-height;
+}
+
+.title-bar.window-title {
+  font-size: 12px;
+  text-align: center;
+  line-height: $title-bar-height;
+}
+
+.title-bar.button {
+  float: right;
+  width: $title-bar-button-width;
+  height: 100%;
+}
+
+.title-bar.drag-region {
+  position: absolute;
+  left: $drag-region-margin;
+  top: $drag-region-margin;
+  height: calc(#{$title-bar-height} - #{$drag-region-margin});
+  width: calc(100% - #{$drag-region-margin} - #{$title-bar-button-width});
+  -webkit-app-region: drag;
+}
+
+.title-bar.button.close {
+  position: relative;
+  background-color: transparent;
+}
+
+.title-bar.button.close:before, .title-bar.title-bar.button.close:after {
+  position: absolute;
+  left: 16px;
+  width: 13px;
+  height: 1px;
+  top: 14px;
+  content: " ";
+  background-color: #000000;
+}
+
+.title-bar.button.close:before {
+  transform: rotate(45deg);
+}
+
+.title-bar.button.close:after {
+  transform: rotate(-45deg);
+}
+
+.title-bar.button.close:hover {
+  background-color: #e81123;
+}
+
+.title-bar.button.close:hover:before, .title-bar.button.close:hover:after {
+  position: absolute;
+  left: 16px;
+  width: 13px;
+  height: 1px;
+  top: 14px;
+  content: " ";
+  background-color: #ffffff;
+}
+
+.title-bar.button.close:hover:before {
+  transform: rotate(45deg);
+}
+
+.title-bar.button.close:hover:after {
+  transform: rotate(-45deg);
+}
+
+.contents {
+  margin: 8px;
+  width: calc(100% - #{$contents-margin} * 2);
+  height: calc(100% - #{$title-bar-height} - #{$contents-margin} * 2);
 }

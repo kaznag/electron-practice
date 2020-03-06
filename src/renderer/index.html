@@ -8,13 +8,20 @@
 </head>
 
 <body>
-  <h1>Hello World!</h1>
-  We are using node
-  <script>document.write(process.versions.node)</script>,
-  Chrome
-  <script>document.write(process.versions.chrome)</script>,
-  and Electron
-  <script>document.write(process.versions.electron)</script>.
+  <div class="title-bar">
+    <div class="title-bar drag-region"></div>
+    <div id="close-button" class="title-bar button close"></div>
+    <div id="window-title" class="title-bar window-title"></div>
+  </div>
+  <div class="contents">
+    <div>Hello World!</div>
+    We are using node
+    <script>document.write(process.versions.node)</script>,
+    Chrome
+    <script>document.write(process.versions.chrome)</script>,
+    and Electron
+    <script>document.write(process.versions.electron)</script>.
+  </div>
 </body>
 
 </html>

@@ -14,6 +14,9 @@ type Settings = {
       center: boolean,
       isMaximized: boolean,
     },
+    styles: {
+      frame: boolean,
+    },
   },
 }
 
@@ -45,6 +48,7 @@ class ApplicationSettings {
         isMaximized: false,
       },
       styles: {
+        frame: false,
         minimumSize: {
           width: 640,
           height: 360,
@@ -74,6 +78,9 @@ class ApplicationSettings {
           center: this.store.get('window.status.center', this.default.window.status.center),
           isMaximized: this.store.get('window.status.isMaximized', this.default.window.status.isMaximized),
         },
+        styles: {
+          frame: this.store.get('window.style.frame', this.default.window.styles.frame),
+        }
       },
     };
   }
@@ -112,6 +119,10 @@ class ApplicationSettings {
 
   setWindowIsMaximized(isMaximized: boolean): void {
     this.settings.window.status.isMaximized = isMaximized;
+  }
+
+  getWindowFrame(): boolean {
+    return this.settings.window.styles.frame;
   }
 
   getWindowMinimumSize(): { width: number, height: number } {
