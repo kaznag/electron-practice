@@ -15,5 +15,22 @@
       "group": "build",
       "problemMatcher": []
     },
+    {
+      "label": "start",
+      "type": "shell",
+      "command": "yarn start",
+      "problemMatcher": []
+    },
+    {
+      "label": "package",
+      "type": "shell",
+      "windows": {
+        "command": "yarn pack:w"
+      },
+      "linux": {
+        "command": "yarn pack:l"
+      },
+      "problemMatcher": []
+    }
   ]
 }
