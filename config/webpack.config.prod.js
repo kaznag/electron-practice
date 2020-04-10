@@ -22,6 +22,18 @@ const renderer = merge(common.renderer, {
   output: {
     path: outputPath,
   },
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+    ]
+  },
   plugins: [
     new JavaScriptObfuscator({
       rotateUnicodeArray: true

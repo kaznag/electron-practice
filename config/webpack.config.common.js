@@ -26,6 +26,11 @@ const main = {
   resolve: {
     extensions: ['.js', '.ts']
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      { from: path.resolve(srcPath, 'package.json') }
+    ])
+  ],
   target: 'electron-main',
   externals: [
     nodeExternals(),
@@ -34,11 +39,6 @@ const main = {
     __filename: false,
     __dirname: false,
   },
-  plugins: [
-    new CopyWebpackPlugin([
-      { from: path.resolve(srcPath, 'package.json') }
-    ])
-  ]
 };
 
 const renderer = {
@@ -58,27 +58,17 @@ const renderer = {
         ],
         loader: 'ts-loader',
       },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 2,
-            },
-          },
-          {
-            loader: 'sass-loader',
-          }
-        ]
-
-      },
     ],
   },
   resolve: {
     extensions: ['.js', '.ts']
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(rootPath, './src/renderer/index.html'),
+      filename: 'index.html',
+    })
+  ],
   target: 'electron-renderer',
   externals: [
     nodeExternals(),
@@ -87,12 +77,6 @@ const renderer = {
     __dirname: false,
     __filename: false
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(rootPath, './src/renderer/index.html'),
-      filename: 'index.html',
-    })
-  ]
 };
 
 module.exports = {
