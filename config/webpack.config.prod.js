@@ -3,10 +3,12 @@ const path = require('path');
 const JavaScriptObfuscator = require('webpack-obfuscator');
 const common = require('./webpack.config.common');
 
+const outputPath = path.resolve(common.rootPath, 'dist/prod');
+
 const main = merge(common.main, {
   mode: 'production',
   output: {
-    path: path.resolve(common.rootPath, 'dist/prod')
+    path: outputPath,
   },
   plugins: [
     new JavaScriptObfuscator({
@@ -18,7 +20,7 @@ const main = merge(common.main, {
 const renderer = merge(common.renderer, {
   mode: 'production',
   output: {
-    path: path.resolve(common.rootPath, 'dist/prod')
+    path: outputPath,
   },
   plugins: [
     new JavaScriptObfuscator({

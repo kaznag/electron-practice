@@ -2,10 +2,12 @@ const merge = require('webpack-merge');
 const path = require('path');
 const common = require('./webpack.config.common');
 
+const outputPath = path.resolve(common.rootPath, 'dist/dev');
+
 const main = merge(common.main, {
   mode: 'development',
   output: {
-    path: path.resolve(common.rootPath, 'dist/dev')
+    path: outputPath,
   },
   devtool: 'inline-source-map',
 });
@@ -13,7 +15,7 @@ const main = merge(common.main, {
 const renderer = merge(common.renderer, {
   mode: 'development',
   output: {
-    path: path.resolve(common.rootPath, 'dist/dev')
+    path: outputPath,
   },
   devtool: 'inline-source-map',
 });
