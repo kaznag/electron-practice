@@ -107,11 +107,7 @@ class MainWindow {
     if (this.isDev) {
       globalShortcut.register(this.devToolsShortcutKey, () => {
         if (this.window!.isFocused()) {
-          if (this.window!.webContents.isDevToolsOpened()) {
-            this.window!.webContents.closeDevTools();
-          } else {
-            this.window!.webContents.openDevTools();
-          }
+          this.window!.webContents.toggleDevTools();
         }
       });
     }
