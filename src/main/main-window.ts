@@ -30,6 +30,7 @@ class MainWindow {
       show: false,
       frame: this.appSettings.getWindowFrame(),
       webPreferences: {
+        devTools: this.isDev,
         nodeIntegration: true,
       }
     };
