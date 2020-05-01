@@ -25,6 +25,7 @@ class Application {
     this.mainWindow = new MainWindow(this.appSettings!);
 
     ipcMain.on(ChannelKey.windowCloseRequest, () => this.onIpcWindowCloseRequest());
+    ipcMain.on(ChannelKey.windowMaximizeRestoreRequest, () => this.onIpcWindowMaximizeRestoreRequest());
 
     if (this.appSettings?.getWindowFrame()) {
       const menu = Menu.buildFromTemplate([{
@@ -59,6 +60,10 @@ class Application {
 
   private onIpcWindowCloseRequest(): void {
     this.mainWindow!.close();
+  }
+
+  private onIpcWindowMaximizeRestoreRequest(): void {
+    this.mainWindow!.maximizeRestore();
   }
 }
 

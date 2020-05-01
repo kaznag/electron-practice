@@ -2,6 +2,7 @@ import { app, BrowserWindow, Event, globalShortcut } from 'electron';
 import * as path from 'path';
 import { ConfirmDialog } from './confirm-dialog';
 import { ApplicationSettings } from './application-settings';
+import { ChannelKey } from '../common/channel-key';
 
 class MainWindow {
 
@@ -58,6 +59,8 @@ class MainWindow {
     this.window.on('closed', () => this.onClosed());
     this.window.on('resize', () => this.onResize());
     this.window.on('move', () => this.onMove());
+    this.window.on('maximize', () => this.onMaximize());
+    this.window.on('unmaximize', () => this.onUnmaximize());
 
     this.registerShortcut();
   }
@@ -72,6 +75,14 @@ class MainWindow {
 
   close(): void {
     this.window!.close();
+  }
+
+  maximizeRestore(): void {
+    if (this.window!.isMaximized()) {
+      this.window!.unmaximize();
+    } else {
+      this.window!.maximize();
+    }
   }
 
   private onClose(e: Event): void {
@@ -102,6 +113,14 @@ class MainWindow {
     if (this.window!.isNormal()) {
       this.normalPosition = this.window!.getPosition();
     }
+  }
+
+  private onMaximize(): void {
+    this.window!.webContents.send(ChannelKey.windowMaximize);
+  }
+
+  private onUnmaximize(): void {
+    this.window!.webContents.send(ChannelKey.windowUnmaximize);
   }
 
   private registerShortcut(): void {
