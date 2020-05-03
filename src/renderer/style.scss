@@ -101,6 +101,52 @@ body {
   background-color: #e5e5e5;
 }
 
+.title-bar.button.restore {
+  position: relative;
+  background-color: transparent;
+}
+
+.title-bar.button.restore:before {
+  position: absolute;
+  top: 12px;
+  left: 17px;
+  width: 6px;
+  height: 6px;
+  content: " ";
+  border: 1px solid #000000;
+}
+
+.title-bar.button.restore:after {
+  position: absolute;
+  top: 10px;
+  left: 19px;
+  width: 1px;
+  height: 1px;
+  content: " ";
+  background: black;
+  box-shadow:
+    0px 1px,
+    1px 0px,
+    2px 0px,
+    3px 0px,
+    4px 0px,
+    5px 0px,
+    6px 0px,
+    7px 0px,
+    7px 1px,
+    7px 2px,
+    7px 3px,
+    7px 4px,
+    7px 5px,
+    7px 6px,
+    7px 7px,
+    6px 7px,
+}
+
+.title-bar.button.restore:hover {
+  background-color: #e5e5e5;
+}
+
 .contents {
   margin: 8px;
   width: calc(100% - #{$contents-margin} * 2);

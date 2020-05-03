@@ -5,6 +5,7 @@ import { ChannelKey } from '../common/channel-key';
 class App {
 
   private maximizeButton: HTMLElement | null;
+  private restoreButton: HTMLElement | null;
 
   constructor() {
 
@@ -15,7 +16,12 @@ class App {
 
     this.maximizeButton = document.getElementById('maximize-button');
     if (this.maximizeButton) {
-      this.maximizeButton.addEventListener('click', this.onMaximizeButtonClick);
+      this.maximizeButton.addEventListener('click', this.onMaximizeRestoreButtonClick);
+    }
+
+    this.restoreButton = document.getElementById('restore-button');
+    if (this.restoreButton) {
+      this.restoreButton.addEventListener('click', this.onMaximizeRestoreButtonClick);
     }
 
     const windowTitle = document.getElementById('window-title');
@@ -25,6 +31,7 @@ class App {
 
     const isMaximized = require('electron').remote.getCurrentWindow().isMaximized();
     this.displayMaximizeButton(!isMaximized);
+    this.displayRestoreButton(isMaximized);
 
     ipcRenderer.on(ChannelKey.windowMaximize, () => this.onWindowMaximize());
     ipcRenderer.on(ChannelKey.windowUnmaximize, () => this.onWindowUnmaximize());
@@ -34,24 +41,28 @@ class App {
     ipcRenderer.send(ChannelKey.windowCloseRequest);
   }
 
-  private onMaximizeButtonClick(): void {
+  private onMaximizeRestoreButtonClick(): void {
     ipcRenderer.send(ChannelKey.windowMaximizeRestoreRequest);
   }
 
   private onWindowMaximize(): void {
     this.displayMaximizeButton(false);
+    this.displayRestoreButton(true);
   }
 
   private onWindowUnmaximize(): void {
     this.displayMaximizeButton(true);
+    this.displayRestoreButton(false);
   }
 
   private displayMaximizeButton(display: boolean): void {
-    if (display) {
-      this.maximizeButton!.style.display = 'block';
-    } else {
-      this.maximizeButton!.style.display = 'none';
-    }
+    const style = display ? 'block' : 'none';
+    this.maximizeButton!.style.display = style;
+  }
+
+  private displayRestoreButton(display: boolean): void {
+    const style = display ? 'block' : 'none';
+    this.restoreButton!.style.display = style;
   }
 }
 
