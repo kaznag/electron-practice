@@ -6,6 +6,7 @@ class App {
 
   private maximizeButton: HTMLElement | null;
   private restoreButton: HTMLElement | null;
+  private minimizeButton: HTMLElement | null;
 
   constructor() {
 
@@ -22,6 +23,11 @@ class App {
     this.restoreButton = document.getElementById('restore-button');
     if (this.restoreButton) {
       this.restoreButton.addEventListener('click', this.onMaximizeRestoreButtonClick);
+    }
+
+    this.minimizeButton = document.getElementById('minimize-button');
+    if (this.minimizeButton) {
+      this.minimizeButton.addEventListener('click', this.onMinimizeButtonClick);
     }
 
     const windowTitle = document.getElementById('window-title');
@@ -43,6 +49,10 @@ class App {
 
   private onMaximizeRestoreButtonClick(): void {
     ipcRenderer.send(ChannelKey.windowMaximizeRestoreRequest);
+  }
+
+  private onMinimizeButtonClick(): void {
+    ipcRenderer.send(ChannelKey.windowMinimizeRequest);
   }
 
   private onWindowMaximize(): void {

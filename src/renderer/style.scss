@@ -33,7 +33,7 @@ body {
   left: $drag-region-margin;
   top: $drag-region-margin;
   height: calc(#{$title-bar-height} - #{$drag-region-margin});
-  width: calc(100% - #{$drag-region-margin} - #{$title-bar-button-width} * 2);
+  width: calc(100% - #{$drag-region-margin} - #{$title-bar-button-width} * 3);
   -webkit-app-region: drag;
 }
 
@@ -144,6 +144,25 @@ body {
 }
 
 .title-bar.button.restore:hover {
+  background-color: #e5e5e5;
+}
+
+.title-bar.button.minimize {
+  position: relative;
+  background-color: transparent;
+}
+
+.title-bar.button.minimize:before {
+  position: absolute;
+  top: 15px;
+  left: 17px;
+  width: 10px;
+  height: 1px;
+  content: " ";
+  border-top: 1px solid #000000;
+}
+
+.title-bar.button.minimize:hover {
   background-color: #e5e5e5;
 }
 

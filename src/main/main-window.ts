@@ -85,6 +85,10 @@ class MainWindow {
     }
   }
 
+  minimize(): void {
+    this.window!.minimize();
+  }
+
   private onClose(e: Event): void {
     if (!ConfirmDialog.show(this.window!, 'Are you sure you want to exit?')) {
       e.preventDefault();
