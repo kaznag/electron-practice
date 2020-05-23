@@ -36,8 +36,8 @@ const main = {
     nodeExternals(),
   ],
   node: {
-    __filename: false,
-    __dirname: false,
+    __filename: true,
+    __dirname: true,
   },
 };
 
@@ -74,8 +74,8 @@ const renderer = {
     nodeExternals(),
   ],
   node: {
-    __dirname: false,
-    __filename: false
+    __dirname: true,
+    __filename: true,
   },
 };
 

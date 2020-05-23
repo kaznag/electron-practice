@@ -53,7 +53,7 @@ class MainWindow {
     }
 
     this.window.setMenu(null);
-    this.window.loadFile(path.join(__dirname, 'index.html'));
+    this.window.loadFile(path.join(app.getAppPath(), 'index.html'));
 
     this.window.on('close', (e: Event) => this.onClose(e));
     this.window.on('closed', () => this.onClosed());
