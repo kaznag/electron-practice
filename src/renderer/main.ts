@@ -1,5 +1,5 @@
 import './style.scss';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, IpcRendererEvent } from 'electron';
 import { ChannelKey } from '../common/channel-key';
 
 class App {
@@ -39,8 +39,8 @@ class App {
     this.displayMaximizeButton(!isMaximized);
     this.displayRestoreButton(isMaximized);
 
-    ipcRenderer.on(ChannelKey.windowMaximize, () => this.onWindowMaximize());
-    ipcRenderer.on(ChannelKey.windowUnmaximize, () => this.onWindowUnmaximize());
+    ipcRenderer.on(ChannelKey.windowMaximize,
+      (_event: IpcRendererEvent, isMaximized: boolean) => this.onWindowMaximize(isMaximized));
   }
 
   private onCloseButtonClick(): void {
@@ -55,14 +55,9 @@ class App {
     ipcRenderer.send(ChannelKey.windowMinimizeRequest);
   }
 
-  private onWindowMaximize(): void {
-    this.displayMaximizeButton(false);
-    this.displayRestoreButton(true);
-  }
-
-  private onWindowUnmaximize(): void {
-    this.displayMaximizeButton(true);
-    this.displayRestoreButton(false);
+  private onWindowMaximize(isMaximized: boolean): void {
+    this.displayMaximizeButton(!isMaximized);
+    this.displayRestoreButton(isMaximized);
   }
 
   private displayMaximizeButton(display: boolean): void {

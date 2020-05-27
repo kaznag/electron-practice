@@ -120,11 +120,15 @@ class MainWindow {
   }
 
   private onMaximize(): void {
-    this.window!.webContents.send(ChannelKey.windowMaximize);
+    this.sendWindowMaximize(true);
   }
 
   private onUnmaximize(): void {
-    this.window!.webContents.send(ChannelKey.windowUnmaximize);
+    this.sendWindowMaximize(false);
+  }
+
+  private sendWindowMaximize(isMaximized: boolean): void {
+    this.window!.webContents.send(ChannelKey.windowMaximize, isMaximized);
   }
 
   private registerShortcut(): void {
