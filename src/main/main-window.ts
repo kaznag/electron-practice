@@ -1,10 +1,10 @@
 import { app, BrowserWindow, Event, globalShortcut } from 'electron';
 import * as path from 'path';
+import { EventEmitter } from 'events';
 import { ConfirmDialog } from './confirm-dialog';
 import { ApplicationSettings } from './application-settings';
-import { ChannelKey } from '../common/channel-key';
 
-class MainWindow {
+class MainWindow extends EventEmitter {
 
   private readonly devToolsShortcutKey = 'CmdOrCtrl+Shift+I';
 
@@ -19,6 +19,8 @@ class MainWindow {
   constructor(
     private appSettings: ApplicationSettings
   ) {
+    super();
+
     const size = this.appSettings.getWindowSize();
     const minSize = this.appSettings.getWindowMinimumSize();
 
@@ -59,8 +61,8 @@ class MainWindow {
     this.window.on('closed', () => this.onClosed());
     this.window.on('resize', () => this.onResize());
     this.window.on('move', () => this.onMove());
-    this.window.on('maximize', () => this.onMaximize());
-    this.window.on('unmaximize', () => this.onUnmaximize());
+    this.window.on('maximize', () => this.emit('maximize'));
+    this.window.on('unmaximize', () => this.emit('unmaximize'));
 
     this.registerShortcut();
   }
@@ -87,6 +89,14 @@ class MainWindow {
 
   minimize(): void {
     this.window!.minimize();
+  }
+
+  send(channel: string, ...args: any[]): void {
+    if (args.length === 1) {
+      this.window!.webContents.send(channel, args[0]);
+    } else {
+      this.window!.webContents.send(channel, args);
+    }
   }
 
   private onClose(e: Event): void {
@@ -117,18 +127,6 @@ class MainWindow {
     if (this.window!.isNormal()) {
       this.normalPosition = this.window!.getPosition();
     }
-  }
-
-  private onMaximize(): void {
-    this.sendWindowMaximize(true);
-  }
-
-  private onUnmaximize(): void {
-    this.sendWindowMaximize(false);
-  }
-
-  private sendWindowMaximize(isMaximized: boolean): void {
-    this.window!.webContents.send(ChannelKey.windowMaximize, isMaximized);
   }
 
   private registerShortcut(): void {

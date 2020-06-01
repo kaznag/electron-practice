@@ -24,6 +24,9 @@ class Application {
   private onReady(): void {
     this.mainWindow = new MainWindow(this.appSettings!);
 
+    this.mainWindow.on('maximize', () => this.onWindowMaximize());
+    this.mainWindow.on('unmaximize', () => this.onWindowUnmaximize());
+
     ipcMain.on(ChannelKey.windowCloseRequest, () => this.onIpcWindowCloseRequest());
     ipcMain.on(ChannelKey.windowMaximizeRestoreRequest, () => this.onIpcWindowMaximizeRestoreRequest());
     ipcMain.on(ChannelKey.windowMinimizeRequest, () => this.onIpcWindowMinimizeRequest());
@@ -59,6 +62,14 @@ class Application {
     }
   }
 
+  private onWindowMaximize(): void {
+    this.sendWindowMaximize(true);
+  }
+
+  private onWindowUnmaximize(): void {
+    this.sendWindowMaximize(false);
+  }
+
   private onIpcWindowCloseRequest(): void {
     this.mainWindow!.close();
   }
@@ -69,6 +80,10 @@ class Application {
 
   private onIpcWindowMinimizeRequest(): void {
     this.mainWindow!.minimize();
+  }
+
+  private sendWindowMaximize(isMaximized: boolean): void {
+    this.mainWindow!.send(ChannelKey.windowMaximize, isMaximized);
   }
 }
 
