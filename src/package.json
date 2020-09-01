@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "main": "./main.js",
   "dependencies": {
-    "electron-store": "^5.1.0"
+    "electron-store": "^6.0.0"
   }
 }

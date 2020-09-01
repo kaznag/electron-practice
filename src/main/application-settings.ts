@@ -68,18 +68,18 @@ class ApplicationSettings {
       window: {
         status: {
           size: {
-            width: this.store.get('window.status.size.width', this.default.window.status.size.width),
-            height: this.store.get('window.status.size.height', this.default.window.status.size.height),
+            width: <number>this.store.get('window.status.size.width', this.default.window.status.size.width),
+            height: <number>this.store.get('window.status.size.height', this.default.window.status.size.height),
           },
           position: {
-            x: this.store.get('window.status.position.x', this.default.window.status.position.x),
-            y: this.store.get('window.status.position.y', this.default.window.status.position.y),
+            x: <number>this.store.get('window.status.position.x', this.default.window.status.position.x),
+            y: <number>this.store.get('window.status.position.y', this.default.window.status.position.y),
           },
-          center: this.store.get('window.status.center', this.default.window.status.center),
-          isMaximized: this.store.get('window.status.isMaximized', this.default.window.status.isMaximized),
+          center: <boolean>this.store.get('window.status.center', this.default.window.status.center),
+          isMaximized: <boolean>this.store.get('window.status.isMaximized', this.default.window.status.isMaximized),
         },
         styles: {
-          frame: this.store.get('window.style.frame', this.default.window.styles.frame),
+          frame: <boolean>this.store.get('window.style.frame', this.default.window.styles.frame),
         }
       },
     };
