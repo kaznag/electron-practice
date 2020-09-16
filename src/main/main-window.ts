@@ -91,6 +91,10 @@ class MainWindow extends EventEmitter {
     this.window!.minimize();
   }
 
+  isMaximized(): boolean {
+    return this.window!.isMaximized();
+  }
+
   send(channel: string, ...args: any[]): void {
     if (args.length === 1) {
       this.window!.webContents.send(channel, args[0]);

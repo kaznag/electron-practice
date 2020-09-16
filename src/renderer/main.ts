@@ -8,6 +8,9 @@ class App {
   private restoreButton: HTMLElement | null;
   private minimizeButton: HTMLElement | null;
 
+  private recieveWindowIsMaxmized: boolean = false;
+  private recieveWindowTitle: boolean = false;
+
   constructor() {
 
     const closeButton = document.getElementById('close-button');
@@ -30,14 +33,21 @@ class App {
       this.minimizeButton.addEventListener('click', this.onMinimizeButtonClick);
     }
 
-    const windowTitle = document.getElementById('window-title');
-    if (windowTitle) {
-      windowTitle.innerHTML = require('electron').remote.app.name;
-    }
+    ipcRenderer.invoke(ChannelKey.windowTitleRequest)
+      .then(title => {
+        const windowTitle = document.getElementById('window-title');
+        if (windowTitle) {
+          windowTitle.innerHTML = title;
+          this.updateInitializeStatus({ recieveWindowTitle: true });
+        }
+      });
 
-    const isMaximized = require('electron').remote.getCurrentWindow().isMaximized();
-    this.displayMaximizeButton(!isMaximized);
-    this.displayRestoreButton(isMaximized);
+    ipcRenderer.invoke(ChannelKey.windowIsMaximizedRequest)
+      .then(isMaximized => {
+        this.displayMaximizeButton(!isMaximized);
+        this.displayRestoreButton(isMaximized);
+        this.updateInitializeStatus({ recieveWindowIsMaximized: true });
+      });
 
     ipcRenderer.on(ChannelKey.windowMaximize,
       (_event: IpcRendererEvent, isMaximized: boolean) => this.onWindowMaximize(isMaximized));
@@ -68,6 +78,20 @@ class App {
   private displayRestoreButton(display: boolean): void {
     const style = display ? 'block' : 'none';
     this.restoreButton!.style.display = style;
+  }
+
+  private updateInitializeStatus(status: { recieveWindowTitle?: boolean, recieveWindowIsMaximized?: boolean }): void {
+    if (status.recieveWindowIsMaximized) {
+      this.recieveWindowIsMaxmized = status.recieveWindowIsMaximized;
+    }
+
+    if (status.recieveWindowTitle) {
+      this.recieveWindowTitle = status.recieveWindowTitle;
+    }
+
+    if (this.recieveWindowIsMaxmized && this.recieveWindowTitle) {
+      ipcRenderer.send(ChannelKey.windowInitialized);
+    }
   }
 }
 

@@ -7,6 +7,11 @@ class ChannelKey {
   static readonly windowCloseRequest = 'windowCloseRequest';
   static readonly windowMaximizeRestoreRequest = 'windowMaximizeRestoreRequest';
   static readonly windowMinimizeRequest = 'windowMinimizeRequest';
+
+  static readonly windowTitleRequest = 'windowTitleRequest';
+  static readonly windowIsMaximizedRequest = 'windowIsMaximizedRequest';
+
+  static readonly windowInitialized = 'windowInitialized';
 }
 
 export {
