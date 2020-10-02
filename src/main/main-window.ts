@@ -34,7 +34,10 @@ class MainWindow extends EventEmitter {
       frame: this.appSettings.getWindowFrame(),
       webPreferences: {
         devTools: this.isDev,
-        nodeIntegration: true,
+        preload: path.resolve(app.getAppPath(), 'preload.js'),
+        sandobox: true,
+        contextIsolation: true,
+        worldSafeExecuteJavascript: true,
       }
     };
 
@@ -49,10 +52,6 @@ class MainWindow extends EventEmitter {
 
     this.normalPosition = this.window.getPosition();
     this.normalSize = this.window.getSize();
-
-    if (this.appSettings.getWindowIsMaximized()) {
-      this.window.maximize();
-    }
 
     this.window.setMenu(null);
     this.window.loadFile(path.join(app.getAppPath(), 'index.html'));
@@ -73,6 +72,10 @@ class MainWindow extends EventEmitter {
     }
 
     this.window!.show();
+  }
+
+  maximize(): void {
+    this.window!.maximize();
   }
 
   close(): void {

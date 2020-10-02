@@ -1,15 +1,10 @@
 import './style.scss';
-import { ipcRenderer, IpcRendererEvent } from 'electron';
-import { ChannelKey } from '../common/channel-key';
 
 class App {
 
   private maximizeButton: HTMLElement | null;
   private restoreButton: HTMLElement | null;
   private minimizeButton: HTMLElement | null;
-
-  private recieveWindowIsMaxmized: boolean = false;
-  private recieveWindowTitle: boolean = false;
 
   constructor() {
 
@@ -33,36 +28,32 @@ class App {
       this.minimizeButton.addEventListener('click', this.onMinimizeButtonClick);
     }
 
-    ipcRenderer.invoke(ChannelKey.windowTitleRequest)
-      .then(title => {
+    window.api.onWindowMaximize(isMaximized => this.onWindowMaximize(isMaximized));
+
+    window.api.invokeWindowParameterRequest()
+      .then(windowParameter => {
         const windowTitle = document.getElementById('window-title');
         if (windowTitle) {
-          windowTitle.innerHTML = title;
-          this.updateInitializeStatus({ recieveWindowTitle: true });
+          windowTitle.innerHTML = windowParameter.title;
         }
-      });
 
-    ipcRenderer.invoke(ChannelKey.windowIsMaximizedRequest)
-      .then(isMaximized => {
-        this.displayMaximizeButton(!isMaximized);
-        this.displayRestoreButton(isMaximized);
-        this.updateInitializeStatus({ recieveWindowIsMaximized: true });
-      });
+        this.displayMaximizeButton(!windowParameter.isMaximized);
+        this.displayRestoreButton(windowParameter.isMaximized);
 
-    ipcRenderer.on(ChannelKey.windowMaximize,
-      (_event: IpcRendererEvent, isMaximized: boolean) => this.onWindowMaximize(isMaximized));
+        window.api.sendWindowInitialized();
+      });
   }
 
   private onCloseButtonClick(): void {
-    ipcRenderer.send(ChannelKey.windowCloseRequest);
+    window.api.sendWindowCloseRequest();
   }
 
   private onMaximizeRestoreButtonClick(): void {
-    ipcRenderer.send(ChannelKey.windowMaximizeRestoreRequest);
+    window.api.sendWindowMaximizeRestoreRequest();
   }
 
   private onMinimizeButtonClick(): void {
-    ipcRenderer.send(ChannelKey.windowMinimizeRequest);
+    window.api.sendWindowMinimizeRequest();
   }
 
   private onWindowMaximize(isMaximized: boolean): void {
@@ -78,20 +69,6 @@ class App {
   private displayRestoreButton(display: boolean): void {
     const style = display ? 'block' : 'none';
     this.restoreButton!.style.display = style;
-  }
-
-  private updateInitializeStatus(status: { recieveWindowTitle?: boolean, recieveWindowIsMaximized?: boolean }): void {
-    if (status.recieveWindowIsMaximized) {
-      this.recieveWindowIsMaxmized = status.recieveWindowIsMaximized;
-    }
-
-    if (status.recieveWindowTitle) {
-      this.recieveWindowTitle = status.recieveWindowTitle;
-    }
-
-    if (this.recieveWindowIsMaxmized && this.recieveWindowTitle) {
-      ipcRenderer.send(ChannelKey.windowInitialized);
-    }
   }
 }
 

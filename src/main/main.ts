@@ -2,6 +2,7 @@ import { app, Menu, ipcMain } from 'electron'
 import { MainWindow } from './main-window';
 import { ApplicationSettings } from './application-settings';
 import { ChannelKey } from '../common/channel-key';
+import { WindowParameter } from '../common/message';
 
 class Application {
 
@@ -30,9 +31,8 @@ class Application {
     ipcMain.on(ChannelKey.windowCloseRequest, () => this.onIpcWindowCloseRequest());
     ipcMain.on(ChannelKey.windowMaximizeRestoreRequest, () => this.onIpcWindowMaximizeRestoreRequest());
     ipcMain.on(ChannelKey.windowMinimizeRequest, () => this.onIpcWindowMinimizeRequest());
-    ipcMain.once(ChannelKey.windowInitialized, () => this.mainWindow!.show());
-    ipcMain.handle(ChannelKey.windowTitleRequest, () => this.app.name);
-    ipcMain.handle(ChannelKey.windowIsMaximizedRequest, () => this.mainWindow!.isMaximized());
+    ipcMain.once(ChannelKey.windowInitialized, () => this.onWindowInitialized());
+    ipcMain.handle(ChannelKey.windowParameterRequest, () => this.onWindowParameterRequest());
 
     if (this.appSettings?.getWindowFrame()) {
       const menu = Menu.buildFromTemplate([{
@@ -81,6 +81,21 @@ class Application {
 
   private onIpcWindowMinimizeRequest(): void {
     this.mainWindow!.minimize();
+  }
+
+  private onWindowInitialized(): void {
+    if (this.appSettings!.getWindowIsMaximized()) {
+      this.mainWindow!.maximize();
+    } else {
+      this.mainWindow!.show();
+    }
+  }
+
+  private onWindowParameterRequest(): WindowParameter {
+    return {
+      isMaximized: this.mainWindow!.isMaximized(),
+      title: this.app.name,
+    };
   }
 
   private sendWindowMaximize(isMaximized: boolean): void {
