@@ -22,6 +22,12 @@
       "problemMatcher": []
     },
     {
+      "label": "start:dev",
+      "type": "shell",
+      "command": "yarn start:dev",
+      "problemMatcher": []
+    },
+    {
       "label": "package",
       "type": "shell",
       "windows": {
