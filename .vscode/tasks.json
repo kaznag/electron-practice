@@ -16,6 +16,20 @@
       "problemMatcher": []
     },
     {
+      "label": "rebuild",
+      "type": "shell",
+      "command": "yarn rebuild",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "rebuild:dev",
+      "type": "shell",
+      "command": "yarn rebuild:dev",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
       "label": "start",
       "type": "shell",
       "command": "yarn start",

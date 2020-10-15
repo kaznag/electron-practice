@@ -5,11 +5,15 @@
   "main": "./main.js",
   "scripts": {
     "build": "node ./scripts/package.js && webpack --config ./config/webpack.config.prod.js",
-    "start": "electron dist/prod",
+    "clean": "rimraf dist/prod",
+    "rebuild": "yarn clean && yarn build",
+    "start": "electron ./dist/prod",
     "build:dev": "node ./scripts/package.js && webpack --config ./config/webpack.config.dev.js",
+    "clean:dev": "rimraf ./dist/dev",
+    "rebuild:dev": "yarn clean:dev && yarn build:dev",
     "start:dev": "electron dist/dev",
-    "pack:l": "yarn build && electron-builder --l --config ./config/electron-builder.yml",
-    "pack:w": "yarn build && electron-builder --w --config ./config/electron-builder.yml",
+    "pack:l": "yarn rebuild && electron-builder --l --config ./config/electron-builder.yml",
+    "pack:w": "yarn rebuild && electron-builder --w --config ./config/electron-builder.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -28,6 +32,7 @@
     "html-webpack-plugin": "^4.4.1",
     "husky": "^4.3.0",
     "node-sass": "^4.14.1",
+    "rimraf": "^3.0.2",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
     "ts-loader": "^8.0.3",
