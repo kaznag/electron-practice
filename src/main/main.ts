@@ -20,6 +20,12 @@ class Application {
     this.app.on('ready', () => this.onReady());
     this.app.on('window-all-closed', () => this.onWindowAllClosed());
     this.app.on('second-instance', () => this.onSecondInstance());
+
+    ipcMain.on(ChannelKey.windowCloseRequest, () => this.onIpcWindowCloseRequest());
+    ipcMain.on(ChannelKey.windowMaximizeRestoreRequest, () => this.onIpcWindowMaximizeRestoreRequest());
+    ipcMain.on(ChannelKey.windowMinimizeRequest, () => this.onIpcWindowMinimizeRequest());
+    ipcMain.once(ChannelKey.windowInitialized, () => this.onIpcWindowInitialized());
+    ipcMain.handle(ChannelKey.windowParameterRequest, () => this.onWindowParameterRequest());
   }
 
   private onReady(): void {
@@ -28,11 +34,6 @@ class Application {
     this.mainWindow.on('maximize', () => this.onWindowMaximize());
     this.mainWindow.on('unmaximize', () => this.onWindowUnmaximize());
 
-    ipcMain.on(ChannelKey.windowCloseRequest, () => this.onIpcWindowCloseRequest());
-    ipcMain.on(ChannelKey.windowMaximizeRestoreRequest, () => this.onIpcWindowMaximizeRestoreRequest());
-    ipcMain.on(ChannelKey.windowMinimizeRequest, () => this.onIpcWindowMinimizeRequest());
-    ipcMain.once(ChannelKey.windowInitialized, () => this.onWindowInitialized());
-    ipcMain.handle(ChannelKey.windowParameterRequest, () => this.onWindowParameterRequest());
 
     if (this.appSettings?.getWindowFrame()) {
       const menu = Menu.buildFromTemplate([{
@@ -83,7 +84,7 @@ class Application {
     this.mainWindow!.minimize();
   }
 
-  private onWindowInitialized(): void {
+  private onIpcWindowInitialized(): void {
     if (this.appSettings!.getWindowIsMaximized()) {
       this.mainWindow!.maximize();
     } else {

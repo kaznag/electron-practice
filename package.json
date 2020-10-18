@@ -4,14 +4,14 @@
   "description": "This is a practice project.",
   "main": "./main.js",
   "scripts": {
+    "start": "electron ./dist/prod",
     "build": "node ./scripts/package.js && webpack --config ./config/webpack.config.prod.js",
     "clean": "rimraf dist/prod",
     "rebuild": "yarn clean && yarn build",
-    "start": "electron ./dist/prod",
+    "start:dev": "electron dist/dev",
     "build:dev": "node ./scripts/package.js && webpack --config ./config/webpack.config.dev.js",
     "clean:dev": "rimraf ./dist/dev",
     "rebuild:dev": "yarn clean:dev && yarn build:dev",
-    "start:dev": "electron dist/dev",
     "pack:l": "yarn rebuild && electron-builder --l --config ./config/electron-builder.yml",
     "pack:w": "yarn rebuild && electron-builder --w --config ./config/electron-builder.yml",
     "test": "echo \"Error: no test specified\" && exit 1"

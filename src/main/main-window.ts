@@ -74,10 +74,6 @@ class MainWindow extends EventEmitter {
     this.window!.show();
   }
 
-  maximize(): void {
-    this.window!.maximize();
-  }
-
   close(): void {
     this.window!.close();
   }
@@ -88,6 +84,10 @@ class MainWindow extends EventEmitter {
     } else {
       this.window!.maximize();
     }
+  }
+
+  maximize(): void {
+    this.window!.maximize();
   }
 
   minimize(): void {
