@@ -35,7 +35,7 @@ class MainWindow extends EventEmitter {
       webPreferences: {
         devTools: this.isDev,
         preload: path.resolve(app.getAppPath(), 'preload.js'),
-        sandobox: true,
+        sandbox: true,
         contextIsolation: true,
         worldSafeExecuteJavascript: true,
       }
