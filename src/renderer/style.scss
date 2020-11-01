@@ -16,7 +16,16 @@ body {
   height: $title-bar-height;
 }
 
-.title-bar.window-title {
+.drag-region {
+  position: absolute;
+  left: $drag-region-margin;
+  top: $drag-region-margin;
+  height: calc(#{$title-bar-height} - #{$drag-region-margin});
+  width: calc(100% - #{$drag-region-margin} - #{$title-bar-button-width} * 3);
+  -webkit-app-region: drag;
+}
+
+.window-title {
   font-size: 12px;
   text-align: center;
   line-height: $title-bar-height;
@@ -28,14 +37,6 @@ body {
   height: 100%;
 }
 
-.title-bar.drag-region {
-  position: absolute;
-  left: $drag-region-margin;
-  top: $drag-region-margin;
-  height: calc(#{$title-bar-height} - #{$drag-region-margin});
-  width: calc(100% - #{$drag-region-margin} - #{$title-bar-button-width} * 3);
-  -webkit-app-region: drag;
-}
 
 .title-bar.button.close {
   position: relative;
