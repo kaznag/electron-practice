@@ -31,6 +31,8 @@ class Application {
   private onReady(): void {
     this.mainWindow = new MainWindow(this.appSettings!);
 
+    this.mainWindow.on('blur', () => this.onWindowBlur());
+    this.mainWindow.on('focus', () => this.onWindowFocus());
     this.mainWindow.on('maximize', () => this.onWindowMaximize());
     this.mainWindow.on('unmaximize', () => this.onWindowUnmaximize());
 
@@ -64,6 +66,14 @@ class Application {
     }
   }
 
+  private onWindowBlur(): void {
+    this.sendWindowFocus(false);
+  }
+
+  private onWindowFocus(): void {
+    this.sendWindowFocus(true);
+  }
+
   private onWindowMaximize(): void {
     this.sendWindowMaximize(true);
   }
@@ -94,9 +104,14 @@ class Application {
 
   private onWindowParameterRequest(): WindowParameter {
     return {
+      isFocused: this.mainWindow!.isFocused(),
       isMaximized: this.mainWindow!.isMaximized(),
       title: this.app.name,
     };
+  }
+
+  private sendWindowFocus(isFocused: boolean): void {
+    this.mainWindow!.send(ChannelKey.windowFocus, isFocused);
   }
 
   private sendWindowMaximize(isMaximized: boolean): void {

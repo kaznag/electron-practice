@@ -2,11 +2,16 @@ import './style.scss';
 
 class App {
 
+  private isFocused: boolean = false;
+
+  private windowTitle: HTMLElement | null;
   private maximizeButton: HTMLElement | null;
   private restoreButton: HTMLElement | null;
   private minimizeButton: HTMLElement | null;
 
   constructor() {
+
+    this.windowTitle = document.getElementById('window-title');
 
     const closeButton = document.getElementById('close-button');
     if (closeButton) {
@@ -30,12 +35,19 @@ class App {
 
     window.api.onWindowMaximize(isMaximized => this.onWindowMaximize(isMaximized));
 
+    window.api.onWindowFocus(isFocused => {
+      this.isFocused = isFocused;
+      this.updateStyles();
+    });
+
     window.api.invokeWindowParameterRequest()
       .then(windowParameter => {
-        const windowTitle = document.getElementById('window-title');
-        if (windowTitle) {
-          windowTitle.innerHTML = windowParameter.title;
+        if (this.windowTitle) {
+          this.windowTitle.innerHTML = windowParameter.title;
         }
+
+        this.isFocused = windowParameter.isFocused;
+        this.updateStyles();
 
         this.displayMaximizeButton(!windowParameter.isMaximized);
         this.displayRestoreButton(windowParameter.isMaximized);
@@ -54,6 +66,12 @@ class App {
 
   private onMinimizeButtonClick(): void {
     window.api.sendWindowMinimizeRequest();
+  }
+
+  private updateStyles(): void {
+    if (this.windowTitle) {
+      this.windowTitle.className = 'window-title' + (!this.isFocused ? ' blur' : '');
+    }
   }
 
   private onWindowMaximize(isMaximized: boolean): void {

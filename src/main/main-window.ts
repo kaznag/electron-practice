@@ -58,6 +58,8 @@ class MainWindow extends EventEmitter {
 
     this.window.on('close', (e: Event) => this.onClose(e));
     this.window.on('closed', () => this.onClosed());
+    this.window.on('blur', () => this.emit('blur'));
+    this.window.on('focus', () => this.emit('focus'));
     this.window.on('resize', () => this.onResize());
     this.window.on('move', () => this.onMove());
     this.window.on('maximize', () => this.emit('maximize'));
@@ -92,6 +94,10 @@ class MainWindow extends EventEmitter {
 
   minimize(): void {
     this.window!.minimize();
+  }
+
+  isFocused(): boolean {
+    return this.window!.isFocused();
   }
 
   isMaximized(): boolean {

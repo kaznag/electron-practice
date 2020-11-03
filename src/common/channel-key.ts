@@ -1,6 +1,7 @@
 
 class ChannelKey {
   // main to renderer
+  static readonly windowFocus = 'windowFocus';
   static readonly windowMaximize = 'windowMaximize';
 
   // renderer to main
@@ -13,5 +14,5 @@ class ChannelKey {
 }
 
 export {
-  ChannelKey
+  ChannelKey,
 }

@@ -7,7 +7,8 @@ declare global {
 }
 
 export interface Api {
-  onWindowMaximize: (listner: (isMaximize: boolean) => void) => void;
+  onWindowFocus: (listener: (isFocused: boolean) => void) => void;
+  onWindowMaximize: (listener: (isMaximize: boolean) => void) => void;
   sendWindowInitialized: () => void;
   sendWindowCloseRequest: () => void;
   sendWindowMaximizeRestoreRequest: () => void;

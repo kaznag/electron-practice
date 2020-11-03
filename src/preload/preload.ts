@@ -5,6 +5,11 @@ import { WindowParameter } from "../common/message";
 contextBridge.exposeInMainWorld(
   'api',
   {
+    onWindowFocus: (listener: (isFocused: boolean) => void) => {
+      ipcRenderer.on(ChannelKey.windowFocus, (_event: IpcRendererEvent, isFocused: boolean) => {
+        listener(isFocused);
+      });
+    },
     onWindowMaximize: (listener: (isMaximized: boolean) => void) => {
       ipcRenderer.on(ChannelKey.windowMaximize, (_event: IpcRendererEvent, isMaximized: boolean) => {
         listener(isMaximized);
