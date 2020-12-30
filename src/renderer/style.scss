@@ -1,7 +1,7 @@
 
 $title-bar-height: 30px;
 $drag-region-margin: 4px;
-$title-bar-button-width: 45px;
+$button-width: 45px;
 $contents-margin: 8px;
 
 html,
@@ -14,6 +14,7 @@ body {
 .title-bar {
   width: 100%;
   height: $title-bar-height;
+  -webkit-user-select: none;
 }
 
 .drag-region {
@@ -21,7 +22,7 @@ body {
   left: $drag-region-margin;
   top: $drag-region-margin;
   height: calc(#{$title-bar-height} - #{$drag-region-margin});
-  width: calc(100% - #{$drag-region-margin} - #{$title-bar-button-width} * 3);
+  width: calc(100% - #{$drag-region-margin} - #{$button-width} * 3);
   -webkit-app-region: drag;
 }
 
@@ -35,140 +36,187 @@ body {
   color: #999999;
 }
 
-.title-bar.button {
-  float: right;
-  width: $title-bar-button-width;
-  height: 100%;
-}
-
-
-.title-bar.button.close {
-  position: relative;
+.button {
   background-color: transparent;
+  float: right;
+  width: $button-width;
+  height: 100%;
+  position: relative;
 }
 
-.title-bar.button.close:before, .title-bar.title-bar.button.close:after {
-  position: absolute;
-  left: 16px;
-  width: 13px;
-  height: 1px;
-  top: 14px;
+@mixin close-button-base($color) {
+  background-color: $color;
   content: " ";
-  background-color: #000000;
+  height: 1px;
+  left: 16px;
+  position: absolute;
+  top: 14px;
+  width: 13px;
 }
 
-.title-bar.button.close:before {
+.close-button {
+  @extend .button;
+}
+
+.close-button {
+  @extend .button;
+}
+
+.close-button:before, .close-button:after {
+  @include close-button-base(#000000);
+}
+
+.close-button:before {
   transform: rotate(45deg);
 }
 
-.title-bar.button.close:after {
+.close-button:after {
   transform: rotate(-45deg);
 }
 
-.title-bar.button.close:hover {
+.close-button:hover {
   background-color: #e81123;
 }
 
-.title-bar.button.close:hover:before, .title-bar.button.close:hover:after {
-  position: absolute;
-  left: 16px;
-  width: 13px;
-  height: 1px;
-  top: 14px;
+.close-button:hover:before, .close-button:hover:after {
+  @include close-button-base(#ffffff);
+}
+
+.close-button.blur:before, .close-button.blur:after {
+  @include close-button-base(#999999);
+}
+
+.close-button.blur:hover:before, .close-button.blur:hover:after {
+  @include close-button-base(#ffffff);
+}
+
+@mixin maximize-button-base($color) {
+  border: 1px solid $color;
   content: " ";
-  background-color: #ffffff;
-}
-
-.title-bar.button.close:hover:before {
-  transform: rotate(45deg);
-}
-
-.title-bar.button.close:hover:after {
-  transform: rotate(-45deg);
-}
-
-.title-bar.button.maximize {
-  position: relative;
-  background-color: transparent;
-}
-
-.title-bar.button.maximize:before {
+  height: 8px;
+  left: 17px;
   position: absolute;
   top: 10px;
-  left: 17px;
   width: 8px;
-  height: 8px;
-  content: " ";
-  border: 1px solid #000000;
 }
 
-.title-bar.button.maximize:hover {
+.maximize-button {
+  @extend .button;
+}
+
+.maximize-button:before {
+  @include maximize-button-base(#000000);
+}
+
+.maximize-button:hover {
   background-color: #e5e5e5;
 }
 
-.title-bar.button.restore {
-  position: relative;
-  background-color: transparent;
+.maximize-button.blur:before {
+  @include maximize-button-base(#999999);
 }
 
-.title-bar.button.restore:before {
+.maximize-button.blur:hover:before {
+  @include maximize-button-base(#000000);
+}
+
+@mixin restore-button-base-before($color) {
+  border: 1px solid $color;
+  content: " ";
+  height: 6px;
+  left: 17px;
   position: absolute;
   top: 12px;
-  left: 17px;
   width: 6px;
-  height: 6px;
-  content: " ";
-  border: 1px solid #000000;
 }
 
-.title-bar.button.restore:after {
+@mixin restore-button-base-after($color) {
+  background: $color;
+  box-shadow:
+    0px 1px $color,
+    1px 0px $color,
+    2px 0px $color,
+    3px 0px $color,
+    4px 0px $color,
+    5px 0px $color,
+    6px 0px $color,
+    7px 0px $color,
+    7px 1px $color,
+    7px 2px $color,
+    7px 3px $color,
+    7px 4px $color,
+    7px 5px $color,
+    7px 6px $color,
+    7px 7px $color,
+    6px 7px $color,;
+  content: " ";
+  height: 1px;
+  left: 19px;
   position: absolute;
   top: 10px;
-  left: 19px;
-  width: 1px;
-  height: 1px;
-  content: " ";
-  background: black;
-  box-shadow:
-    0px 1px,
-    1px 0px,
-    2px 0px,
-    3px 0px,
-    4px 0px,
-    5px 0px,
-    6px 0px,
-    7px 0px,
-    7px 1px,
-    7px 2px,
-    7px 3px,
-    7px 4px,
-    7px 5px,
-    7px 6px,
-    7px 7px,
-    6px 7px,
+  width: 1px
 }
 
-.title-bar.button.restore:hover {
+.restore-button {
+  @extend .button;
+}
+
+.restore-button:before {
+  @include restore-button-base-before(#000000);
+}
+
+.restore-button:after {
+  @include restore-button-base-after(#000000);
+}
+
+.restore-button:hover {
   background-color: #e5e5e5;
 }
 
-.title-bar.button.minimize {
-  position: relative;
-  background-color: transparent;
+.restore-button.blur:before {
+  @include restore-button-base-before(#999999);
 }
 
-.title-bar.button.minimize:before {
+.restore-button.blur:after {
+  @include restore-button-base-after(#999999);
+}
+
+.restore-button.blur:hover:before {
+  @include restore-button-base-before(#000000);
+}
+
+.restore-button.blur:hover:after {
+  @include restore-button-base-after(#000000);
+}
+
+@mixin minimize-button-base($color) {
+  border-top: 1px solid $color;
+  content: " ";
+  height: 1px;
+  left: 17px;
   position: absolute;
   top: 15px;
-  left: 17px;
   width: 10px;
-  height: 1px;
-  content: " ";
-  border-top: 1px solid #000000;
 }
 
-.title-bar.button.minimize:hover {
+.minimize-button {
+  @extend .button;
+}
+
+.minimize-button:before {
+  @include minimize-button-base(#000000);
+}
+
+.minimize-button:hover {
   background-color: #e5e5e5;
+}
+
+.minimize-button.blur:before {
+  @include minimize-button-base(#999999);
+}
+
+.minimize-button.blur:hover:before {
+  @include minimize-button-base(#000000);
 }
 
 .contents {
