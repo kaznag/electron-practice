@@ -4,8 +4,8 @@ This is a practice project.
 
 ## Environment
 
-- node v12.18.3
-- yarn 1.22.4
+- node v12.22.1
+- yarn 1.22.5
 
 ## Usage
 
