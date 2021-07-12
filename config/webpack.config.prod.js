@@ -1,6 +1,6 @@
 const { merge } = require('webpack-merge');
 const path = require('path');
-const JavaScriptObfuscator = require('webpack-obfuscator');
+const WebpackObfuscator = require('webpack-obfuscator');
 const common = require('./webpack.config.common');
 
 const outputPath = path.resolve(common.rootPath, 'dist/prod');
@@ -11,9 +11,9 @@ const main = merge(common.main, {
     path: outputPath,
   },
   plugins: [
-    new JavaScriptObfuscator({
+    new WebpackObfuscator({
       rotateUnicodeArray: true
-    }),
+    }, []),
   ]
 });
 
@@ -35,9 +35,9 @@ const renderer = merge(common.renderer, {
     ]
   },
   plugins: [
-    new JavaScriptObfuscator({
+    new WebpackObfuscator({
       rotateUnicodeArray: true
-    }),
+    }, []),
   ]
 });
 
@@ -47,9 +47,9 @@ const preload = merge(common.preload, {
     path: outputPath,
   },
   plugins: [
-    new JavaScriptObfuscator({
+    new WebpackObfuscator({
       rotateUnicodeArray: true
-    }),
+    }, []),
   ]
 });
 
