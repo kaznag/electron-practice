@@ -14,7 +14,8 @@
     "rebuild:dev": "yarn clean:dev && yarn build:dev",
     "pack:l": "yarn rebuild && electron-builder --l --config ./config/electron-builder.yml",
     "pack:w": "yarn rebuild && electron-builder --w --config ./config/electron-builder.yml",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
   },
   "keywords": [
     "electron"
@@ -30,7 +31,7 @@
     "electron": "^13.1.6",
     "electron-builder": "^22.11.7",
     "html-webpack-plugin": "^5.3.2",
-    "husky": "^4.3.0",
+    "husky": "^7.0.0",
     "javascript-obfuscator": "^2.15.5",
     "node-sass": "^6.0.1",
     "rimraf": "^3.0.2",
@@ -43,10 +44,5 @@
     "webpack-merge": "^5.8.0",
     "webpack-node-externals": "^3.0.0",
     "webpack-obfuscator": "^3.3.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "node ./scripts/package.js && git add ./src/package.json"
-    }
   }
 }
