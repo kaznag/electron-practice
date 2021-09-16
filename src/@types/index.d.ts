@@ -1,4 +1,4 @@
-import { WindowParameter } from "../common/message";
+import { WindowParameter } from '../common/message';
 
 declare global {
   interface Window {

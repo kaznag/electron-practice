@@ -4,35 +4,34 @@ type Settings = {
   window: {
     status: {
       size: {
-        width: number,
-        height: number,
-      },
+        width: number;
+        height: number;
+      };
       position: {
-        x: number,
-        y: number,
-      },
-      center: boolean,
-      isMaximized: boolean,
-    },
+        x: number;
+        y: number;
+      };
+      center: boolean;
+      isMaximized: boolean;
+    };
     styles: {
-      frame: boolean,
-    },
-  },
-}
+      frame: boolean;
+    };
+  };
+};
 
 type Default = Settings & {
   window: {
     styles: {
       minimumSize: {
-        width: number,
-        height: number,
-      },
-    },
-  },
-}
+        width: number;
+        height: number;
+      };
+    };
+  };
+};
 
 class ApplicationSettings {
-
   private readonly default: Default = {
     window: {
       status: {
@@ -68,19 +67,31 @@ class ApplicationSettings {
       window: {
         status: {
           size: {
-            width: <number>this.store.get('window.status.size.width', this.default.window.status.size.width),
-            height: <number>this.store.get('window.status.size.height', this.default.window.status.size.height),
+            width: <number>(
+              this.store.get('window.status.size.width', this.default.window.status.size.width)
+            ),
+            height: <number>(
+              this.store.get('window.status.size.height', this.default.window.status.size.height)
+            ),
           },
           position: {
-            x: <number>this.store.get('window.status.position.x', this.default.window.status.position.x),
-            y: <number>this.store.get('window.status.position.y', this.default.window.status.position.y),
+            x: <number>(
+              this.store.get('window.status.position.x', this.default.window.status.position.x)
+            ),
+            y: <number>(
+              this.store.get('window.status.position.y', this.default.window.status.position.y)
+            ),
           },
-          center: <boolean>this.store.get('window.status.center', this.default.window.status.center),
-          isMaximized: <boolean>this.store.get('window.status.isMaximized', this.default.window.status.isMaximized),
+          center: <boolean>(
+            this.store.get('window.status.center', this.default.window.status.center)
+          ),
+          isMaximized: <boolean>(
+            this.store.get('window.status.isMaximized', this.default.window.status.isMaximized)
+          ),
         },
         styles: {
           frame: <boolean>this.store.get('window.style.frame', this.default.window.styles.frame),
-        }
+        },
       },
     };
   }
@@ -89,7 +100,7 @@ class ApplicationSettings {
     this.store.set(this.settings);
   }
 
-  getWindowSize(): { width: number, height: number } {
+  getWindowSize(): { width: number; height: number } {
     return this.settings.window.status.size;
   }
 
@@ -97,7 +108,7 @@ class ApplicationSettings {
     this.settings.window.status.size = { width: width, height: height };
   }
 
-  getWindowPosition(): { x: number, y: number } {
+  getWindowPosition(): { x: number; y: number } {
     return this.settings.window.status.position;
   }
 
@@ -125,11 +136,9 @@ class ApplicationSettings {
     return this.settings.window.styles.frame;
   }
 
-  getWindowMinimumSize(): { width: number, height: number } {
+  getWindowMinimumSize(): { width: number; height: number } {
     return this.default.window.styles.minimumSize;
   }
 }
 
-export {
-  ApplicationSettings,
-}
+export { ApplicationSettings };

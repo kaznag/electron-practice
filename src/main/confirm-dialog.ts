@@ -1,10 +1,9 @@
 import { BrowserWindow, dialog } from 'electron';
 
 class ConfirmDialog {
-
   static show(parent: BrowserWindow, message: string): boolean {
     const options = {
-      type: "question",
+      type: 'question',
       buttons: ['Yes', 'Cancel'],
       defaultId: 1,
       title: 'Confirm',
@@ -16,6 +15,4 @@ class ConfirmDialog {
   }
 }
 
-export {
-  ConfirmDialog,
-}
+export { ConfirmDialog };

@@ -1,7 +1,6 @@
 import './style.scss';
 
 class App {
-
   private isFocused: boolean = false;
   private isMaximized = false;
 
@@ -11,7 +10,6 @@ class App {
   private minimizeButton: HTMLElement | null;
 
   constructor() {
-
     this.windowTitle = document.getElementById('window-title');
 
     this.closeButton = document.getElementById('close-button');
@@ -29,26 +27,25 @@ class App {
       this.minimizeButton.addEventListener('click', this.onMinimizeButtonClick);
     }
 
-    window.api.onWindowMaximize(isMaximized => this.onWindowMaximize(isMaximized));
+    window.api.onWindowMaximize((isMaximized) => this.onWindowMaximize(isMaximized));
 
-    window.api.onWindowFocus(isFocused => {
+    window.api.onWindowFocus((isFocused) => {
       this.isFocused = isFocused;
       this.updateStyles();
     });
 
-    window.api.invokeWindowParameterRequest()
-      .then(windowParameter => {
-        if (this.windowTitle) {
-          this.windowTitle.innerHTML = windowParameter.title;
-        }
+    window.api.invokeWindowParameterRequest().then((windowParameter) => {
+      if (this.windowTitle) {
+        this.windowTitle.innerHTML = windowParameter.title;
+      }
 
-        this.isFocused = windowParameter.isFocused;
-        this.isMaximized = windowParameter.isMaximized;
+      this.isFocused = windowParameter.isFocused;
+      this.isMaximized = windowParameter.isMaximized;
 
-        this.updateStyles();
+      this.updateStyles();
 
-        window.api.sendWindowInitialized();
-      });
+      window.api.sendWindowInitialized();
+    });
   }
 
   private onCloseButtonClick(): void {
@@ -81,7 +78,9 @@ class App {
 
   private updateMaximizeRestoreButtonStyle(): void {
     if (this.maximizeRestoreButton) {
-      this.maximizeRestoreButton.className = (this.isMaximized ? 'restore-button' : 'maximize-button') + (!this.isFocused ? ' blur' : '');
+      this.maximizeRestoreButton.className =
+        (this.isMaximized ? 'restore-button' : 'maximize-button') +
+        (!this.isFocused ? ' blur' : '');
     }
   }
 

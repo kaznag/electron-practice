@@ -15,6 +15,10 @@
     "pack:l": "yarn rebuild && electron-builder --l --config ./config/electron-builder.yml",
     "pack:w": "yarn rebuild && electron-builder --w --config ./config/electron-builder.yml",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "run-p lint:*",
+    "lint:prettier": "prettier --check ./src/**/*.{html,ts}",
+    "fix": "run-s fix:*",
+    "fix:prettier": "prettier --write ./src/**/*.{html,ts}",
     "prepare": "husky install"
   },
   "keywords": [
@@ -34,6 +38,8 @@
     "husky": "^7.0.0",
     "javascript-obfuscator": "^2.15.5",
     "node-sass": "^6.0.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.1.0",

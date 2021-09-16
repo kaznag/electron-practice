@@ -1,11 +1,10 @@
-import { app, Menu, ipcMain } from 'electron'
+import { app, Menu, ipcMain } from 'electron';
 import { MainWindow } from './main-window';
 import { ApplicationSettings } from './application-settings';
 import { ChannelKey } from '../common/channel-key';
 import { WindowParameter } from '../common/message';
 
 class Application {
-
   private mainWindow: MainWindow | null = null;
 
   private appSettings: ApplicationSettings | null = null;
@@ -22,7 +21,9 @@ class Application {
     this.app.on('second-instance', () => this.onSecondInstance());
 
     ipcMain.on(ChannelKey.windowCloseRequest, () => this.onIpcWindowCloseRequest());
-    ipcMain.on(ChannelKey.windowMaximizeRestoreRequest, () => this.onIpcWindowMaximizeRestoreRequest());
+    ipcMain.on(ChannelKey.windowMaximizeRestoreRequest, () =>
+      this.onIpcWindowMaximizeRestoreRequest()
+    );
     ipcMain.on(ChannelKey.windowMinimizeRequest, () => this.onIpcWindowMinimizeRequest());
     ipcMain.once(ChannelKey.windowInitialized, () => this.onIpcWindowInitialized());
     ipcMain.handle(ChannelKey.windowParameterRequest, () => this.onWindowParameterRequest());
@@ -36,18 +37,20 @@ class Application {
     this.mainWindow.on('maximize', () => this.onWindowMaximize());
     this.mainWindow.on('unmaximize', () => this.onWindowUnmaximize());
 
-
     if (this.appSettings?.getWindowFrame()) {
-      const menu = Menu.buildFromTemplate([{
-        label: '&File',
-        submenu: [
-          {
-            label: 'E&xit',
-            accelerator: 'CmdOrCtrl+Q',
-            click: () => { this.app.quit(); }
-          }
-        ]
-      }
+      const menu = Menu.buildFromTemplate([
+        {
+          label: '&File',
+          submenu: [
+            {
+              label: 'E&xit',
+              accelerator: 'CmdOrCtrl+Q',
+              click: () => {
+                this.app.quit();
+              },
+            },
+          ],
+        },
       ]);
 
       Menu.setApplicationMenu(menu);

@@ -5,7 +5,6 @@ import { ConfirmDialog } from './confirm-dialog';
 import { ApplicationSettings } from './application-settings';
 
 class MainWindow extends EventEmitter {
-
   private readonly devToolsShortcutKey = 'CmdOrCtrl+Shift+I';
 
   private readonly isDev = process.env.NODE_ENV !== 'production';
@@ -16,9 +15,7 @@ class MainWindow extends EventEmitter {
 
   private normalPosition: number[] = [];
 
-  constructor(
-    private appSettings: ApplicationSettings
-  ) {
+  constructor(private appSettings: ApplicationSettings) {
     super();
 
     const size = this.appSettings.getWindowSize();
@@ -38,7 +35,7 @@ class MainWindow extends EventEmitter {
         sandbox: true,
         contextIsolation: true,
         worldSafeExecuteJavascript: true,
-      }
+      },
     };
 
     this.window = new BrowserWindow(options);
@@ -157,6 +154,4 @@ class MainWindow extends EventEmitter {
   }
 }
 
-export {
-  MainWindow,
-}
+export { MainWindow };
