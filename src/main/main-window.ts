@@ -34,7 +34,6 @@ class MainWindow extends EventEmitter {
         devTools: this.isDev,
         preload: path.resolve(app.getAppPath(), 'preload.js'),
         sandbox: true,
-        contextIsolation: true,
       },
     };
 
