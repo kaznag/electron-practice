@@ -33,7 +33,6 @@ class MainWindow extends EventEmitter {
       webPreferences: {
         devTools: this.isDev,
         preload: path.resolve(app.getAppPath(), 'preload.js'),
-        sandbox: true,
       },
     };
 
