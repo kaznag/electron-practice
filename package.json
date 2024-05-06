@@ -52,7 +52,7 @@
     "webpack-obfuscator": "^3.3.2"
   },
   "volta": {
-    "node": "18.20.2",
+    "node": "20.12.2",
     "yarn": "1.22.22"
   }
 }
